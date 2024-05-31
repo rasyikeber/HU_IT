@@ -1,0 +1,5 @@
+nlp-pt/nlp/student/stud/fine_tuned_model/model.safetensors filter=lfs diff=lfs merge=lfs -text
+nlp-pt/nlp/student/stud
+
+
+git[[:space:]]lfs[[:space:]]track[[:space:]]nlp-pt/nlp/student/stud filter=lfs diff=lfs merge=lfs -text

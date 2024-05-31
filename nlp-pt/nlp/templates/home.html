@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid home-background">
+    <h2 class="text-home-bg-white" style="padding-top:50px; padding-left: 80px; margin-bottom:70px;"> Welcome: {{ currentUser.name }}</h2>
+    <div class="row justify-content-center dsp">
+        <div class="col-md-4">
+            <div class="group-box box1">
+                <div class="groups">
+                    
+                    <img src="../static/images/group2.png" width="100" height="60" style="margin-top:10px; padding-left: 55px; " alt="">
+                {% if groupStud %}
+                    <div class=" stud">
+                        {% for stud in groupStud %}
+                        <p class="studp">{{loop.index}}: {{stud.name}}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <p>you are alone, you should make group!</p>
+                {% endif %}
+                </div>
+            <div style="margin-top: 40px;">
+                <h5 class="" style="color: white;"><span style="font-size: 16px;">Your adviser is:</span> {{ adv.name }}<h5/>
+                <span><img src="../static/images/email.png" width="30" alt=""></span><a href="mailto:{{adv.email}}" class="advemail"> {{adv.email}}</a>   
+            </div>
+            </div> 
+        </div>
+        <div class="col-md-6 home-project box2">
+           {% if userProject %}
+             {% if userProject|length == 1 %}
+              <div class="congra">
+                <span class="correct">&#10004;</span><span>Congratulation!</span><h5>Your approved project idea </h5>
+
+              </div>
+                <div class="">
+                    {% for project in userProject %}
+                        <div class="">
+                            <div class="cardmain {% if userProject|length == 1 %}{% endif %}">
+                                <h5 class="card-title">Project {{ loop.index }}: {{ project.title }}</h5>
+                                <p class="description">{{ project.description }}</p>
+                                <button class="adv-read-more read-more-btn">Read more</button>
+                                <button class="show-less-btn" style="display: none;">Show less</button>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="">
+                    {% for project in userProject %}
+                        <div class="">
+                            <div class="cardmain">
+                                <h5 class="card-title">Project {{ loop.index }}: {{ project.title }}</h5>
+                                <p class="description">{{ project.description }}</p>
+                                <button class="adv-read-more read-more-btn">Read more</button>
+                                <button class="show-less-btn" style="display: none;">Show less</button>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% else %}
+            <div class="center-screen">
+                <p class="error-message">No projects found for your department.</p>
+              </div>
+            {% endif %}
+
+        </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.cardmain').forEach(function(card) {
+          const readMoreBtn = card.querySelector('.read-more-btn');
+          const showLessBtn = card.querySelector('.show-less-btn');
+          const description = card.querySelector('.description');
+      
+          readMoreBtn.addEventListener('click', function() {
+            description.classList.add('expanded');
+            readMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'inline';
+          });
+      
+          showLessBtn.addEventListener('click', function() {
+            description.classList.remove('expanded');
+            readMoreBtn.style.display = 'inline';
+            showLessBtn.style.display = 'none';
+          });
+        });
+      });
+  </script>
+{% endblock %}
+
+
+<!-- <div style="overflow-x: hidden;">
+    Corrected syntax to access user's name
+  
+</div> -->
